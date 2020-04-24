@@ -3,16 +3,29 @@ package mate.academy.internetshop.model;
 import java.util.List;
 
 public class Order {
-    private Long id;
-    private List<Product> products;
+    private Long orderID;
     private User user;
+    private List<Product> products;
 
-    public Long getId() {
-        return id;
+    public Order(User user, List<Product> products) {
+        this.user = user;
+        this.products = products;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return orderID;
+    }
+
+    public void setOrderID(Long orderID) {
+        this.orderID = orderID;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Product> getProducts() {
@@ -23,11 +36,11 @@ public class Order {
         this.products = products;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public String toString() {
+        return "Order{" + "orderID=" + orderID
+                + ", user=" + user
+                + ", products=" + products
+                + '}';
     }
 }

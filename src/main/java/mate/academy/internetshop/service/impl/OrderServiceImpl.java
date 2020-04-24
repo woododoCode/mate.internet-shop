@@ -1,34 +1,52 @@
 package mate.academy.internetshop.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import mate.academy.internetshop.dao.interfaces.OrderDao;
+import mate.academy.internetshop.db.Storage;
+import mate.academy.internetshop.lib.Inject;
+import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.OrderService;
+import mate.academy.internetshop.service.ShoppingCartService;
 
+@Service
 public class OrderServiceImpl implements OrderService {
+    @Inject
+    private OrderDao orderDao;
+    @Inject
+    private ShoppingCartService shoppingCartService;
+
     @Override
     public Order completeOrder(List<Product> products, User user) {
-        return null;
+        List<Product> productsToOrder = new ArrayList<>(products);
+        shoppingCartService.clear(shoppingCartService.getByUserId(user.getId()));
+        Order newOrder = new Order(user, productsToOrder);
+        return orderDao.create(newOrder);
     }
 
     @Override
     public List<Order> getUserOrders(User user) {
-        return null;
+        return orderDao.getAll().stream()
+                .filter(order -> order.getUser().equals(user))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Order get(Long id) {
-        return null;
+        return orderDao.get(id).get();
     }
 
     @Override
     public List<Order> getAll() {
-        return null;
+        return Storage.orders;
     }
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        return orderDao.delete(id);
     }
 }
