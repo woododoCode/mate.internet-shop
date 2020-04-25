@@ -1,11 +1,16 @@
 package mate.academy.internetshop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart {
-    private List<Product> products;
     private Long id;
+    private List<Product> products = new ArrayList<>();
     private User user;
+
+    public ShoppingCart(User user) {
+        this.user = user;
+    }
 
     public List<Product> getProducts() {
         return products;
@@ -13,6 +18,14 @@ public class ShoppingCart {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -23,11 +36,12 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public String toString() {
+        return "ShoppingCart{"
+                + "id=" + id
+                + ", products=" + products
+                + ", user=" + user
+                + '}';
     }
 }
