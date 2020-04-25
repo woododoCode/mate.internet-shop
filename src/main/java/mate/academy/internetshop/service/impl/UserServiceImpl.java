@@ -36,4 +36,5 @@ public class UserServiceImpl implements UserService {
     public boolean delete(Long id) {
         return userDao.delete(id);
     }
+
 }
