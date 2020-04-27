@@ -53,7 +53,7 @@ public class Main {
         userService.delete(user2.getId());
         System.out.println(userService.getAll());
 
-        ShoppingCart cart1 = shoppingCartService.getByUserId(user1.getId());
+        ShoppingCart cart1 = shoppingCartService.getByUserId(user2.getId());
         shoppingCartService.addProduct(cart1, product3);
         shoppingCartService.addProduct(cart1, product1);
         shoppingCartService.addProduct(cart1, product2);
