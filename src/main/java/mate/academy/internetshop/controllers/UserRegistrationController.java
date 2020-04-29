@@ -36,11 +36,11 @@ public class UserRegistrationController extends HttpServlet {
         String passwordConfirm = req.getParameter("pwd-confirm");
 
         if (password.equals(passwordConfirm)) {
-            resp.sendRedirect(req.getContextPath() + "/");
             User user = new User(name, login, password);
             userService.create(user);
             ShoppingCart cart = new ShoppingCart(user);
             shoppingCartService.create(cart);
+            resp.sendRedirect(req.getContextPath() + "/");
         } else {
             req.setAttribute("message", "Your passwords don't match");
             req.setAttribute("login", login);

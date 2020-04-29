@@ -12,12 +12,12 @@ import mate.academy.internetshop.service.ShoppingCartService;
 
 @WebServlet("/products/add")
 public class ProductAddToCartController extends HttpServlet {
-    private static final long USER_ID = 1;
+    private static final long USER_ID = 1L;
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
-    private ProductService productService =
+    private final ProductService productService =
             (ProductService) INJECTOR.getInstance(ProductService.class);
-    private ShoppingCartService shoppingCartService =
+    private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
 
     @Override
