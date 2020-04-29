@@ -9,7 +9,6 @@
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
-        <th>Amount</th>
         <th>Delete</th>
         <th>Add to cart</th>
     </tr>
@@ -25,9 +24,6 @@
                 </td>
                 <td>
                     <c:out value="${product.getPrice()}"/>
-                </td>
-                <td>
-                    <c:out value="${product.getAmount()}"/>
                 </td>
                 <td>
                     <a href="${pageContext.request.contextPath}/products/delete?id=${product.getId()}">Delete</a>

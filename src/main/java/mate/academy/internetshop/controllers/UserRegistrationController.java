@@ -34,27 +34,15 @@ public class UserRegistrationController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("pwd");
         String passwordConfirm = req.getParameter("pwd-confirm");
-        System.out.println(
-                "name: " + name + "\n"
-                + "login: " + login + "\n"
-                + "pwd: " + password + "\n"
-                + "pwdc: " + passwordConfirm
-        );
 
-        if (password.equals(passwordConfirm)
-                && (!name.isBlank() && !login.isBlank())) {
+        if (password.equals(passwordConfirm)) {
             resp.sendRedirect(req.getContextPath() + "/");
             User user = new User(name, login, password);
             userService.create(user);
             ShoppingCart cart = new ShoppingCart(user);
             shoppingCartService.create(cart);
-        } else if (!password.equals(passwordConfirm)) {
-            req.setAttribute("message", "Your passwords don't match");
-            req.setAttribute("login", login);
-            req.setAttribute("name", name);
-            req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
         } else {
-            req.setAttribute("message2", "Name or Login can't be empty");
+            req.setAttribute("message", "Your passwords don't match");
             req.setAttribute("login", login);
             req.setAttribute("name", name);
             req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);

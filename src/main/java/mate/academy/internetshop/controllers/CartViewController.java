@@ -15,7 +15,6 @@ import mate.academy.internetshop.service.ShoppingCartService;
 @WebServlet("/cart")
 public class CartViewController extends HttpServlet {
     private static final Long USER_ID = 1L;
-
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
     private final ShoppingCartService shoppingCartService =
