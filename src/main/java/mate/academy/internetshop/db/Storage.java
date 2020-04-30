@@ -40,7 +40,7 @@ public class Storage {
     }
 
     public static Order addOrder(Order order) {
-        userId++;
+        orderId++;
         order.setOrderID(orderId);
         orders.add(order);
         return order;
