@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../includes/header.jsp"></jsp:include>
-<div class="container">
+<div class="container mt-5">
     <form class="border border-light p-5" method="post" action="${pageContext.request.contextPath}/newprod">
 
         <p class="h4 mb-4 text-center">Add new product</p>

@@ -30,11 +30,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/cart">Shopping Cart</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/orders">Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/products">Products List</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Products</a>
+                   aria-haspopup="true" aria-expanded="false">Admin</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/products">All products</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/products">Products manage</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/newprod">Add new product</a>
                 </div>
             </li>
