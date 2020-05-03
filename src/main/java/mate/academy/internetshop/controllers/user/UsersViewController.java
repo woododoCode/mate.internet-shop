@@ -1,27 +1,29 @@
-package mate.academy.internetshop.controllers;
+package mate.academy.internetshop.controllers.user;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.service.ProductService;
+import mate.academy.internetshop.model.User;
+import mate.academy.internetshop.service.UserService;
 
-@WebServlet("/products/delete")
-public class ProductDeleteController extends HttpServlet {
+@WebServlet("/users/all")
+public class UsersViewController extends HttpServlet {
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
-    private final ProductService productService =
-            (ProductService) INJECTOR.getInstance(ProductService.class);
+    private final UserService userService =
+            (UserService) INJECTOR.getInstance(UserService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String productId = req.getParameter("id");
-        Long id = Long.valueOf(productId);
-        productService.delete(id);
-        resp.sendRedirect(req.getContextPath() + "/admin/products");
+
+        List<User> users = userService.getAll();
+        req.setAttribute("users", users);
+        req.getRequestDispatcher("/WEB-INF/views/users/all.jsp").forward(req, resp);
     }
 }
