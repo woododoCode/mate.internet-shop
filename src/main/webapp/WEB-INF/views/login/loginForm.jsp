@@ -2,8 +2,8 @@
 <jsp:include page="../includes/header.jsp"></jsp:include>
 <div class="container">
     <div class="row d-flex justify-content-center mt-5">
-        <div class="col-6">
-            <form class="text-center border border-light p-5" method="post" action="${pageContext.request.contextPath}/login">
+        <div class="col-6 card">
+            <form class="text-center p-5" method="post" action="${pageContext.request.contextPath}/login">
                 <p class="h4 mb-4">Login</p>
                 <label>Login:</label>
                 <input name="login" type="text" class="form-control mb-4" placeholder="Login" value="${login}">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </form>
-        </div>t
+        </div>
     </div>
 </div>
 <jsp:include page="../includes/footer.jsp"></jsp:include>

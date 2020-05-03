@@ -5,10 +5,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
-    <title>Title</title>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+<body class="cloudy-knoxville-gradient">
+<nav class="navbar navbar-expand-lg navbar-dark aqua-gradient">
     <a class="navbar-brand" href="${pageContext.request.contextPath}/">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
             aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,13 +21,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/login">Login</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/users/all">Users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/registration">Registration</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/cart">Shopping Cart</a>
@@ -46,6 +39,14 @@
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/products">Products manage</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/newprod">Add new product</a>
                 </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item">
+                <a class="nav-link text-body" href="${pageContext.request.contextPath}/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-body" href="${pageContext.request.contextPath}/registration">Registration</a>
             </li>
         </ul>
     </div>
