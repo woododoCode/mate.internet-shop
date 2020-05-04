@@ -12,7 +12,7 @@ import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
-@WebServlet("/order/detail")
+@WebServlet("/user/order/detail")
 public class OrderDeteailViewController extends HttpServlet {
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");

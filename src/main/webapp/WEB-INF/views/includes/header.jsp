@@ -21,13 +21,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/users/all">Users</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/users">Users</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/cart">Shopping Cart</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/orders">Orders</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/user/orders">Orders</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/products">Products List</a>
@@ -37,7 +37,7 @@
                    aria-haspopup="true" aria-expanded="false">Admin</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/products">Products manage</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/newprod">Add new product</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/product/add">Add new product</a>
                 </div>
             </li>
         </ul>

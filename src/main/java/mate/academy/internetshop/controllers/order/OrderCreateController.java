@@ -14,9 +14,8 @@ import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
-@WebServlet("/order")
+@WebServlet("/cart/order/complete")
 public class OrderCreateController extends HttpServlet {
-    private static final Long USER_ID = 1L;
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
     private ShoppingCartService shoppingCartService =
@@ -27,11 +26,12 @@ public class OrderCreateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        ShoppingCart cart = shoppingCartService.getByUserId(USER_ID);
+        Long userId = (Long) req.getSession().getAttribute("user_id");
+        ShoppingCart cart = shoppingCartService.getByUserId(userId);
         List<Product> products = List.copyOf(cart.getProducts());
         shoppingCartService.clear(cart);
         User user = cart.getUser();
         orderService.completeOrder(products, user);
-        resp.sendRedirect(req.getContextPath() + "/orders");
+        resp.sendRedirect(req.getContextPath() + "/user/orders");
     }
 }
