@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.service.OrderService;
 
-@WebServlet("/order/delete")
+@WebServlet("/user/order/delete")
 public class OrderDeleteController extends HttpServlet {
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
@@ -22,6 +22,6 @@ public class OrderDeleteController extends HttpServlet {
         String idS = req.getParameter("id");
         Long id = Long.valueOf(idS);
         orderService.delete(id);
-        resp.sendRedirect(req.getContextPath() + "/orders");
+        resp.sendRedirect(req.getContextPath() + "/user/orders");
     }
 }

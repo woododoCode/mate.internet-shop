@@ -27,14 +27,14 @@
                     <c:out value="${product.getPrice()}"/>
                 </td>
                 <td>
-                    <a  href="${pageContext.request.contextPath}/cart/delete?id=${product.getId()}"
+                    <a  href="${pageContext.request.contextPath}/cart/product/delete?id=${product.getId()}"
                         class="btn aqua-gradient btn-sm">Delete</a>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-        <a class="btn btn-info btn-block my-4" href="${pageContext.request.contextPath}/order">Create Order</a>
+        <a class="btn btn-info btn-block my-4" href="${pageContext.request.contextPath}/cart/order/complete">Create Order</a>
 </div>
 </div>
 </div>

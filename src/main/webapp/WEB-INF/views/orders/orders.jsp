@@ -24,10 +24,10 @@
                     <c:out value="${order.getUser().getName()}"/>
                 </td>
                 <td>
-                    <a class="btn btn-sm aqua-gradient btn-block" href="${pageContext.request.contextPath}/order/detail?id=${order.getId()}">Details</a>
+                    <a class="btn btn-sm aqua-gradient btn-block" href="${pageContext.request.contextPath}/user/order/detail?id=${order.getId()}">Details</a>
                 </td>
                 <td>
-                    <a class="btn btn-sm aqua-gradient btn-block" href="${pageContext.request.contextPath}/order/delete?id=${order.getId()}">Delete</a>
+                    <a class="btn btn-sm aqua-gradient btn-block" href="${pageContext.request.contextPath}/user/order/delete?id=${order.getId()}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
