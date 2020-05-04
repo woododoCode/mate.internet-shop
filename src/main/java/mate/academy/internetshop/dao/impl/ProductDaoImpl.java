@@ -34,7 +34,6 @@ public class ProductDaoImpl implements ProductDao {
                         .getId().equals(updatedProduct.getId()))
                 .forEach(i -> Storage.products
                         .set(i, updatedProduct));
-
         return updatedProduct;
     }
 

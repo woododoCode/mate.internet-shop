@@ -30,24 +30,20 @@ public class AuthenticationFilter implements Filter {
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
         String url = req.getServletPath();
         if (url.equals("/login") || url.equals("/registration")) {
             filterChain.doFilter(req, resp);
             return;
         }
-
         Long userId = (Long) req.getSession().getAttribute(USER_ID);
         if (userId == null || userService.get(userId) == null) {
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
-
         filterChain.doFilter(req, resp);
     }
 
     @Override
     public void destroy() {
-
     }
 }

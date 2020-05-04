@@ -34,7 +34,6 @@ public class UserRegistrationController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("pwd");
         String passwordConfirm = req.getParameter("pwd-confirm");
-
         if (password.equals(passwordConfirm)) {
             User user = new User(name, login, password);
             userService.create(user);
