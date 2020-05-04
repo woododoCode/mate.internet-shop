@@ -1,4 +1,4 @@
-package mate.academy.internetshop.controllers;
+package mate.academy.internetshop.controllers.order;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,12 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.Order;
+import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.model.ShoppingCart;
+import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
-@WebServlet("/orders")
-public class OrderViewController extends HttpServlet {
+@WebServlet("/order")
+public class OrderCreateController extends HttpServlet {
+    private static final Long USER_ID = 1L;
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
     private ShoppingCartService shoppingCartService =
@@ -24,8 +27,11 @@ public class OrderViewController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        List<Order> orders = orderService.getAll();
-        req.setAttribute("orders", orders);
-        req.getRequestDispatcher("/WEB-INF/views/orders/orders.jsp").forward(req, resp);
+        ShoppingCart cart = shoppingCartService.getByUserId(USER_ID);
+        List<Product> products = List.copyOf(cart.getProducts());
+        shoppingCartService.clear(cart);
+        User user = cart.getUser();
+        orderService.completeOrder(products, user);
+        resp.sendRedirect(req.getContextPath() + "/orders");
     }
 }

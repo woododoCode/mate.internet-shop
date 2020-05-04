@@ -2,8 +2,8 @@
 <jsp:include page="includes/header.jsp"></jsp:include>
 <div class="container">
     <div class="row d-flex justify-content-center mt-5">
-        <div class="col-6">
-            <form class="text-center border border-light p-5" method="post" action="${pageContext.request.contextPath}/registration">
+        <div class="col-6 card">
+            <form class="text-center p-5" method="post" action="${pageContext.request.contextPath}/registration">
                 <p class="h4 mb-4">Registration</p>
                 <label>Name:</label>
                 <input name="name" type="text" class="form-control mb-4" placeholder="Name" value="${name}">

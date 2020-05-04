@@ -3,7 +3,9 @@
 <jsp:include page="../includes/header.jsp"></jsp:include>
 <h1 class="h2-responsive text-center my-5"><strong>Orders list</strong></h1>
 <div class="container">
-    <table id="dtBasicExample" class="mt-5 table table-striped table-bordered" cellspacing="0" width="100%">
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-6 card">
+    <table id="dtBasicExample" class="my-5 table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
             <th>ID</th>
@@ -22,10 +24,10 @@
                     <c:out value="${order.getUser().getName()}"/>
                 </td>
                 <td>
-                    <a class="btn" href="${pageContext.request.contextPath}/order/detail?id=${order.getId()}">Details</a>
+                    <a class="btn btn-sm aqua-gradient btn-block" href="${pageContext.request.contextPath}/order/detail?id=${order.getId()}">Details</a>
                 </td>
                 <td>
-                    <a class="btn" href="${pageContext.request.contextPath}/order/delete?id=${order.getId()}">Delete</a>
+                    <a class="btn btn-sm aqua-gradient btn-block" href="${pageContext.request.contextPath}/order/delete?id=${order.getId()}">Delete</a>
                 </td>
             </tr>
         </c:forEach>

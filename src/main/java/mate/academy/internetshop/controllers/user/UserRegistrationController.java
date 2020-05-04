@@ -1,4 +1,4 @@
-package mate.academy.internetshop.controllers;
+package mate.academy.internetshop.controllers.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -16,9 +16,9 @@ import mate.academy.internetshop.service.UserService;
 public class UserRegistrationController extends HttpServlet {
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
-    private UserService userService =
+    private final UserService userService =
             (UserService) INJECTOR.getInstance(UserService.class);
-    private ShoppingCartService shoppingCartService =
+    private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
 
     @Override
@@ -34,7 +34,6 @@ public class UserRegistrationController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("pwd");
         String passwordConfirm = req.getParameter("pwd-confirm");
-
         if (password.equals(passwordConfirm)) {
             User user = new User(name, login, password);
             userService.create(user);

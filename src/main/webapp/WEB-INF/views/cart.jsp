@@ -3,16 +3,18 @@
 <jsp:include page="includes/header.jsp"></jsp:include>
 <h1 class="h2-responsive text-center my-5"><strong>Products in cart</strong></h1>
 <div class="container">
-    <table id="dtBasicExample" class="mt-5 table table-striped table-bordered" cellspacing="0" width="100%">
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-6 card">
+    <table id="dtBasicExample" class="mt-5 table table-striped table-bordered" cellspacing="0" width="10%">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Delete</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Delete</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
         <c:forEach var="product" items="${products}">
             <tr>
                 <td>
@@ -25,12 +27,15 @@
                     <c:out value="${product.getPrice()}"/>
                 </td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/cart/delete?id=${product.getId()}">Delete</a>
+                    <a  href="${pageContext.request.contextPath}/cart/delete?id=${product.getId()}"
+                        class="btn aqua-gradient btn-sm">Delete</a>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-        <a сlass="btn btn-info btn-block my-4" href="${pageContext.request.contextPath}/order">Create Order</a>
+        <a class="btn btn-info btn-block my-4" href="${pageContext.request.contextPath}/order">Create Order</a>
+</div>
+</div>
 </div>
 <jsp:include page="includes/footer.jsp"></jsp:include>

@@ -1,4 +1,4 @@
-package mate.academy.internetshop.controllers;
+package mate.academy.internetshop.controllers.cart;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,28 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.ShoppingCart;
-import mate.academy.internetshop.model.User;
-import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
-@WebServlet("/order")
-public class OrderCreateController extends HttpServlet {
+@WebServlet("/cart")
+public class CartViewController extends HttpServlet {
     private static final Long USER_ID = 1L;
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
-    private ShoppingCartService shoppingCartService =
+    private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
-    private OrderService orderService =
-            (OrderService) INJECTOR.getInstance(OrderService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        ShoppingCart cart = shoppingCartService.getByUserId(USER_ID);
-        List<Product> products = List.copyOf(cart.getProducts());
-        shoppingCartService.clear(cart);
-        User user = cart.getUser();
-        orderService.completeOrder(products, user);
-        resp.sendRedirect(req.getContextPath() + "/orders");
+        ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
+        List<Product> products = shoppingCart.getProducts();
+        req.setAttribute("products", products);
+        req.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(req, resp);
     }
 }

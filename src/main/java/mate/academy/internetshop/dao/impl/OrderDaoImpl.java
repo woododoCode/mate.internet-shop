@@ -34,7 +34,6 @@ public class OrderDaoImpl implements OrderDao {
                         .getId().equals(order.getId()))
                 .forEach(i -> Storage.orders
                         .set(i, order));
-
         return order;
     }
 

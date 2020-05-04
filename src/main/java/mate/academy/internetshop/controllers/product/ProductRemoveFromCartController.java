@@ -1,4 +1,4 @@
-package mate.academy.internetshop.controllers;
+package mate.academy.internetshop.controllers.product;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,8 +10,8 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.service.ProductService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
-@WebServlet("/products/add")
-public class ProductAddToCartController extends HttpServlet {
+@WebServlet("/cart/delete")
+public class ProductRemoveFromCartController extends HttpServlet {
     private static final long USER_ID = 1L;
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
@@ -23,8 +23,8 @@ public class ProductAddToCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        shoppingCartService.addProduct(shoppingCartService.getByUserId(USER_ID),
+        shoppingCartService.deleteProduct(shoppingCartService.getByUserId(USER_ID),
                 productService.get(Long.parseLong(req.getParameter("id"))));
-        resp.sendRedirect(req.getContextPath() + "/products");
+        resp.sendRedirect(req.getContextPath() + "/cart");
     }
 }

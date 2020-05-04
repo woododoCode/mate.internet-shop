@@ -38,7 +38,6 @@ public class InjectDataController extends HttpServlet {
         productService.create(p1);
         productService.create(p2);
         productService.create(p3);
-
         ShoppingCart cart = new ShoppingCart(bilbo);
         shoppingCartService.create(cart);
         shoppingCartService.addProduct(cart, p1);
