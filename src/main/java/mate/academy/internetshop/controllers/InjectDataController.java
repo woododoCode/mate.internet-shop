@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.ProductService;
@@ -28,10 +30,15 @@ public class InjectDataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        User bilbo = new User("Bilbo","++654654", "+6+65+6654");
-        User frodo = new User("Frodo", "asdasd", "password");
+        User bilbo = new User("Bilbo","bilbo", "bilbo");
+        bilbo.setRoles(Set.of(Role.of("USER")));
+        User frodo = new User("Frodo", "frodo", "frodo");
+        frodo.setRoles(Set.of(Role.of("USER")));
+        User admin = new User("admin", "admin", "admin");
+        admin.setRoles(Set.of(Role.of("ADMIN")));
         userService.create(bilbo);
         userService.create(frodo);
+        userService.create(admin);
         Product p1 = new Product("vata", 15, 987.55);
         Product p3 = new Product("hata", 1, 78.95);
         Product p2 = new Product("nata", 2, 11.36);

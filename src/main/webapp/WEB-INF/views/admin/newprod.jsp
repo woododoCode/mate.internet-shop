@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../includes/header.jsp"></jsp:include>
-<div class="container mt-5">
-    <form class="border border-light p-5" method="post" action="${pageContext.request.contextPath}/admin/product/add">
+<div class="container">
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-6 card">
+    <form class="p-5" method="post" action="${pageContext.request.contextPath}/admin/product/add">
 
         <p class="h4 mb-4 text-center">Add new product</p>
         <div class="my-2">
@@ -26,6 +28,8 @@
 
 
 </form>
+</div>
+</div>
 </div>
 <jsp:include page="../includes/footer.jsp"></jsp:include>
 

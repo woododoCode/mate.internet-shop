@@ -16,7 +16,7 @@
                 </div>
                 <label>Password:</label>
                 <input name="pwd" type="password" class="form-control mb-4" placeholder="Password">
-                <label>Password:</label>
+                <label>Confirm password:</label>
                 <input name="pwd-confirm" type="password" class="form-control mb-4" placeholder="Confirm password">
                 <div class="d-inline invalid-feedback">
                     ${message}

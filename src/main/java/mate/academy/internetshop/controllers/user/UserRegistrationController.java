@@ -1,12 +1,14 @@
 package mate.academy.internetshop.controllers.user;
 
 import java.io.IOException;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.ShoppingCartService;
@@ -36,6 +38,7 @@ public class UserRegistrationController extends HttpServlet {
         String passwordConfirm = req.getParameter("pwd-confirm");
         if (password.equals(passwordConfirm)) {
             User user = new User(name, login, password);
+            user.setRoles(Set.of(Role.of("USER")));
             userService.create(user);
             ShoppingCart cart = new ShoppingCart(user);
             shoppingCartService.create(cart);
