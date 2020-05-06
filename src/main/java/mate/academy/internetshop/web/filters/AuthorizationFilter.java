@@ -46,15 +46,13 @@ public class AuthorizationFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-        String role = (String) req.getSession().getAttribute("role");
         Long userId = (Long) req.getSession().getAttribute("user_id");
         User user = userService.get(userId);
         if (isAuthorized(user, protectedUrls.get(url))) {
-            req.setAttribute("role", role);
             chain.doFilter(req, resp);
             return;
         }
-        req.getRequestDispatcher("WEB-INF/views/errors/403.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/errors/403.jsp").forward(req, resp);
     }
 
     @Override

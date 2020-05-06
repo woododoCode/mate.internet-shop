@@ -21,51 +21,43 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
-        <c:choose>
-            <c:when test="${role == \"ADMIN\"}">
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/users">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/products">Products manage</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/product/add">Add new product</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/orders">Orders</a>
-                </li>
-            </c:when>
-            <c:when test="${role == \"USER\"}">
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/cart">Shopping Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/orders">Orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/products">Products List</a>
-                </li>
-            </c:when>
-        </c:choose>
+
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/cart">Shopping Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/user/orders">Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/products">Products List</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Admin</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/products">Products manage</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/product/add">Add new product</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/users">Users</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/orders">Orders</a>
+                </div>
+            </li>
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
             <c:choose>
                 <c:when test="${user_id > 0}">
-
             <li class="nav-item">
-                <span class="navbar-text text-body mr-3 font-weight-bold">Welcome ${user_name}</span>
+                <span class="navbar-text text-body mr-3">Welcome ${user_name}</span>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-body font-weight-bold" href="${pageContext.request.contextPath}/logout">Logout</a>
-            </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-body" href="${pageContext.request.contextPath}/logout">Logout</a>
+                    </li>
                 </c:when>
                 <c:otherwise>
             <li class="nav-item">
-                <a class="nav-link text-body font-weight-bold" href="${pageContext.request.contextPath}/login">Login</a>
+                <a class="nav-link text-body" href="${pageContext.request.contextPath}/login">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-body font-weight-bold" href="${pageContext.request.contextPath}/registration">Registration</a>
+                <a class="nav-link text-body" href="${pageContext.request.contextPath}/registration">Registration</a>
             </li>
                 </c:otherwise>
             </c:choose>

@@ -8,11 +8,11 @@
         <filter-class>mate.academy.internetshop.web.filters.AuthorizationFilter</filter-class>
         <init-param>
             <param-name>Admin urls</param-name>
-            <param-value>/users,/admin/products,/admin/product/add,/admin/products/delete,/users/delete,/user/order/delete</param-value>
+            <param-value>/users,/admin/products,/admin/product/add,/admin/products/delete,/users/delete,/user/order/delete,/admin/orders</param-value>
         </init-param>
         <init-param>
             <param-name>User urls</param-name>
-            <param-value>/cart,/cart/product/delete,/cart/products/add</param-value>
+            <param-value>/cart,/cart/product/delete,/cart/products/add,/user/orders,/products</param-value>
         </init-param>
     </filter>
     <filter-mapping>

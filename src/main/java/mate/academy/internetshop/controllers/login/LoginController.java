@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mate.academy.internetshop.exceptions.AuthenticationException;
 import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.security.AuthenticationService;
 
@@ -36,9 +35,6 @@ public class LoginController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user_id", user.getId());
             session.setAttribute("user_name", user.getName());
-            for (Role role: user.getRoles()) {
-                session.setAttribute("role", role.getRoleName().name());
-            }
         } catch (AuthenticationException e) {
             req.setAttribute("errorMsg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/login/loginForm.jsp").forward(req, resp);

@@ -11,14 +11,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Price</th>
-    <c:choose>
-        <c:when test="${role == \"ADMIN\"}">
-            <th>Delete</th>
-        </c:when>
-        <c:when test="${role == \"USER\"}">
             <th>Add to cart</th>
-        </c:when>
-    </c:choose>
         </tr>
         </thead>
         <tbody>
@@ -33,22 +26,14 @@
                 <td>
                     <c:out value="${product.getPrice()}"/>
                 </td>
-                <c:choose>
-                    <c:when test="${role == \"ADMIN\"}">
-                        <td>
-                            <a href="${pageContext.request.contextPath}/admin/products/delete?id=${product.getId()}">Delete</a>
-                        </td>
-                    </c:when>
-                    <c:when test="${role == \"USER\"}">
-                        <td>
-                            <a href="${pageContext.request.contextPath}/cart/products/add?id=${product.getId()}">
-                                <button class="btn btn-sm aqua-gradient btn-block" type="submit">
-                                    Add to cart
-                                </button>
-                            </a>
-                        </td>
-                    </c:when>
-                </c:choose>
+                <td>
+                    <a href="${pageContext.request.contextPath}/cart/products/add?id=${product.getId()}">
+                        <button class="btn btn-sm aqua-gradient btn-block" type="submit">
+                            Add to cart
+                        </button>
+                    </a>
+                </td>
+
             </tr>
         </c:forEach>
         </tbody>
