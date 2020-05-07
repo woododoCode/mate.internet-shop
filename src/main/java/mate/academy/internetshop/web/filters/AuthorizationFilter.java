@@ -52,7 +52,6 @@ public class AuthorizationFilter implements Filter {
         User user = userService.get(userId);
         if (isAuthorized(user, protectedUrls.get(url))) {
             chain.doFilter(req, resp);
-            return;
         } else {
             LOGGER.warn("BACK OFF, FROM " + url + " DEAR " + user.getName());
             req.getRequestDispatcher("/WEB-INF/views/errors/403.jsp").forward(req, resp);
