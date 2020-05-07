@@ -31,16 +31,19 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String url = req.getServletPath();
-        if (url.equals("/login") || url.equals("/registration")) {
+        if (url.equals("/login") || url.equals("/injectData") || url.equals("/registration")) {
             filterChain.doFilter(req, resp);
             return;
         }
         Long userId = (Long) req.getSession().getAttribute(USER_ID);
+        String userName = (String) req.getSession().getAttribute("user_name");
         if (userId == null || userService.get(userId) == null) {
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
         filterChain.doFilter(req, resp);
+        req.setAttribute("user_name", userName);
+        req.setAttribute("user_id", userId);
     }
 
     @Override

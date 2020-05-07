@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,9 +21,7 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/users">Users</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/cart">Shopping Cart</a>
             </li>
@@ -38,16 +37,30 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/products">Products manage</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/product/add">Add new product</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/users">Users</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/orders">Orders</a>
                 </div>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
+            <c:choose>
+                <c:when test="${user_id > 0}">
+            <li class="nav-item">
+                <span class="navbar-text text-body mr-3">Welcome ${user_name}</span>
+            </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-body" href="${pageContext.request.contextPath}/logout">Logout</a>
+                    </li>
+                </c:when>
+                <c:otherwise>
             <li class="nav-item">
                 <a class="nav-link text-body" href="${pageContext.request.contextPath}/login">Login</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-body" href="${pageContext.request.contextPath}/registration">Registration</a>
             </li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 </nav>
