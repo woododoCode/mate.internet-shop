@@ -16,10 +16,8 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
-import org.apache.log4j.Logger;
 
 public class AuthorizationFilter implements Filter {
-    private static final Logger LOGGER = Logger.getLogger(AuthorizationFilter.class);
     private static final Injector INJECTOR =
             Injector.getInstance("mate.academy.internetshop");
     private final UserService userService =
@@ -54,7 +52,6 @@ public class AuthorizationFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-        LOGGER.warn("BACK OFF, FROM " + url + " DEAR " + user.getName());
         req.getRequestDispatcher("/WEB-INF/views/errors/403.jsp").forward(req, resp);
     }
 
