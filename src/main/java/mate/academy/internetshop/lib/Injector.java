@@ -13,7 +13,6 @@ import java.util.Map;
 
 public class Injector {
     private static final Map<String, Injector> injectors = new HashMap<>();
-
     private final Map<Class<?>, Object> instanceOfClasses = new HashMap<>();
     private final List<Class<?>> classes = new ArrayList<>();
 
@@ -55,7 +54,6 @@ public class Injector {
         if (newInstanceOfClass == null) {
             return getNewInstance(clazz);
         }
-
         return newInstanceOfClass;
     }
 
@@ -63,13 +61,16 @@ public class Injector {
         for (Class<?> clazz : classes) {
             Class<?>[] interfaces = clazz.getInterfaces();
             for (Class<?> singleInterface : interfaces) {
-                if (singleInterface.equals(certainInterface)) {
+                if (singleInterface.equals(certainInterface)
+                        && (clazz.isAnnotationPresent(Service.class)
+                        || clazz.isAnnotationPresent(Dao.class))) {
                     return clazz;
                 }
             }
         }
-        throw new RuntimeException("Can't find class which implemented "
-                + certainInterface.getName() + " interface");
+        throw new RuntimeException("Can't find class which implements "
+                + certainInterface.getName()
+                + " interface and has valid annotation (Dao or Service)");
     }
 
     private Object getNewInstance(Class<?> certainClass) {
@@ -102,20 +103,13 @@ public class Injector {
     }
 
     private void setValueToField(Field field, Object instanceOfClass, Object classToInject) {
-        if (classToInject.getClass().getDeclaredAnnotation(Service.class) != null
-                || classToInject.getClass().getDeclaredAnnotation(Dao.class) != null) {
-            try {
-                field.setAccessible(true);
-                field.set(instanceOfClass, classToInject);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException("Can't set value to field ", e);
-            }
-        } else {
-            throw new RuntimeException(classToInject.getClass().getName()
-                    + " hasn't valid annotation (Dao or Service)");
+        try {
+            field.setAccessible(true);
+            field.set(instanceOfClass, classToInject);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("Can't set value to field ", e);
         }
     }
-
     /**
      * Scans all classes accessible from the context class loader which
      * belong to the given package and subpackages.
@@ -125,6 +119,7 @@ public class Injector {
      * @throws ClassNotFoundException if the class cannot be located
      * @throws IOException            if I/O errors occur
      */
+
     private static List<Class<?>> getClasses(String packageName)
             throws IOException, ClassNotFoundException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -144,7 +139,6 @@ public class Injector {
         }
         return classes;
     }
-
     /**
      * Recursive method used to find all classes in a given directory and subdirs.
      *
@@ -153,6 +147,7 @@ public class Injector {
      * @return The classes
      * @throws ClassNotFoundException if the class cannot be located
      */
+
     private static List<Class<?>> findClasses(File directory, String packageName)
             throws ClassNotFoundException {
         List<Class<?>> classes = new ArrayList<>();
