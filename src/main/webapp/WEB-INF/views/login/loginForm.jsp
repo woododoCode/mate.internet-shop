@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../includes/header.jsp"></jsp:include>
+<jsp:element name="img"><img src="../123.jpg" alt=""></jsp:element>
 <div class="container">
     <div class="row d-flex justify-content-center mt-5">
         <div class="col-6 card">
