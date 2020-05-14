@@ -40,7 +40,7 @@ public class UserRegistrationController extends HttpServlet {
             User user = new User(name, login, password);
             user.setRoles(Set.of(Role.of("USER")));
             userService.create(user);
-            ShoppingCart cart = new ShoppingCart(user);
+            ShoppingCart cart = new ShoppingCart(user.getId());
             shoppingCartService.create(cart);
             resp.sendRedirect(req.getContextPath() + "/");
         } else {

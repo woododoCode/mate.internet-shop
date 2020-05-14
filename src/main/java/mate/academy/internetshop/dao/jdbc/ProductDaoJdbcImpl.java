@@ -1,5 +1,6 @@
 package mate.academy.internetshop.dao.jdbc;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             PreparedStatement statement = connection.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, product.getName());
-            statement.setDouble(2, product.getPrice());
+            statement.setBigDecimal(2, product.getPrice());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -35,7 +36,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public Optional<Product> get(Long id) {
-        String query = "SELECT * FROM products WHERE id=?";
+        String query = "SELECT * FROM products WHERE product_id=?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
@@ -70,11 +71,11 @@ public class ProductDaoJdbcImpl implements ProductDao {
     @Override
     public Product update(Product product) {
         String query = "UPDATE products SET name = ?, price = ? "
-                + "WHERE id = ?;";
+                + "WHERE product_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, product.getName());
-            statement.setDouble(2, product.getPrice());
+            statement.setBigDecimal(2, product.getPrice());
             statement.setLong(3, product.getId());
             statement.executeUpdate();
             return product;
@@ -85,7 +86,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public boolean delete(Long id) {
-        String query = "DELETE FROM products WHERE id = ?;";
+        String query = "DELETE FROM products WHERE product_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
@@ -97,9 +98,9 @@ public class ProductDaoJdbcImpl implements ProductDao {
     }
 
     private Product getProductFromResultSet(ResultSet resultSet) throws SQLException {
-        Long id = resultSet.getLong("id");
+        Long id = resultSet.getLong("product_id");
         String name = resultSet.getString("name");
-        Double price = resultSet.getDouble("price");
+        BigDecimal price = resultSet.getBigDecimal("price");
         Product product = new Product(name, price);
         product.setId(id);
         return product;
