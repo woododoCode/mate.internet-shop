@@ -38,7 +38,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
     public Optional<Product> get(Long id) {
         String query = "SELECT * FROM products WHERE product_id=?";
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
+            var statement = connection.prepareStatement(query);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -56,7 +56,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
         String query = "SELECT * FROM products;";
         List<Product> allProducts = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
+            var statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Product product = getProductFromResultSet(resultSet);
@@ -73,7 +73,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
         String query = "UPDATE products SET name = ?, price = ? "
                 + "WHERE product_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
+            var statement = connection.prepareStatement(query);
             statement.setString(1, product.getName());
             statement.setBigDecimal(2, product.getPrice());
             statement.setLong(3, product.getId());
@@ -88,7 +88,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
     public boolean delete(Long id) {
         String query = "DELETE FROM products WHERE product_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
+            var statement = connection.prepareStatement(query);
             statement.setLong(1, id);
             int numberOfRowsDeleted = statement.executeUpdate();
             return numberOfRowsDeleted != 0;
