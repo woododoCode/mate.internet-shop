@@ -129,13 +129,18 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public boolean delete(Long id) {
-        String deleteUserQuery = "DELETE FROM users WHERE user_id = ?;";
-        try (Connection connection = ConnectionUtil.getConnection()) {
+
+        try {
+            deleteUserShoppingCartProducts(id);
             deleteUsersRoles(id);
             deleteOrdersProducts(id);
             deleteUserOrders(id);
             deleteUserShoppingCart(id);
-            deleteUserShoppingCartProducts(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        String deleteUserQuery = "DELETE FROM users WHERE user_id = ?;";
+        try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(deleteUserQuery);
             statement.setLong(1, id);
             int numberOfRowsDeleted = statement.executeUpdate();

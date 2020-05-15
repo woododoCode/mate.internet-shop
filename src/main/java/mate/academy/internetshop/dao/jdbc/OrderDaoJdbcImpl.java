@@ -89,6 +89,11 @@ public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public boolean delete(Long id) {
         String deleteOrderQuery = "DELETE FROM orders WHERE order_id = ?;";
+        try {
+            deleteOrderFromOrdersProducts(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         try (Connection connection = ConnectionUtil.getConnection()) {
             deleteOrderFromOrdersProducts(id);
             PreparedStatement statement = connection.prepareStatement(deleteOrderQuery);

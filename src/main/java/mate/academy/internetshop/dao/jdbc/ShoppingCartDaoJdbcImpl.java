@@ -21,6 +21,11 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public ShoppingCart create(ShoppingCart element) {
         String insertShoppingCartQuery = "INSERT INTO carts (user_id) VALUES (?);";
+        try {
+            insertCartsProducts(element);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(insertShoppingCartQuery,
                     PreparedStatement.RETURN_GENERATED_KEYS);
@@ -29,7 +34,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
             element.setId(resultSet.getLong(1));
-            insertCartsProducts(element);
+
             return element;
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to create " + element, e);
@@ -92,8 +97,12 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public boolean delete(Long id) {
         String deleteShoppingCartQuery = "DELETE FROM carts WHERE card_id = ?;";
-        try (Connection connection = ConnectionUtil.getConnection()) {
+        try {
             deleteShoppingCartFromCartsProducts(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try (Connection connection = ConnectionUtil.getConnection()) {
             var statement = connection.prepareStatement(deleteShoppingCartQuery);
             statement.setLong(1, id);
             int numberOfRowsDeleted = statement.executeUpdate();
