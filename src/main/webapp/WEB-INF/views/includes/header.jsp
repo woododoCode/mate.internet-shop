@@ -16,11 +16,6 @@
     </button>
     <div class="collapse navbar-collapse" id="basicExampleNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="${pageContext.request.contextPath}/injectData"> Inject Data
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/cart">Shopping Cart</a>

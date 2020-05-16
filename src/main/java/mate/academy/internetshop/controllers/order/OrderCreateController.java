@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.ShoppingCart;
-import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
@@ -30,8 +29,7 @@ public class OrderCreateController extends HttpServlet {
         ShoppingCart cart = shoppingCartService.getByUserId(userId);
         List<Product> products = List.copyOf(cart.getProducts());
         shoppingCartService.clear(cart);
-        User user = cart.getUser();
-        orderService.completeOrder(products, user);
+        orderService.completeOrder(products, userId);
         resp.sendRedirect(req.getContextPath() + "/user/orders");
     }
 }
