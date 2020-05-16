@@ -95,7 +95,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
             throwables.printStackTrace();
         }
         try (Connection connection = ConnectionUtil.getConnection()) {
-            deleteOrderFromOrdersProducts(id);
             PreparedStatement statement = connection.prepareStatement(deleteOrderQuery);
             statement.setLong(1, id);
             int numberOfRowsDeleted = statement.executeUpdate();
