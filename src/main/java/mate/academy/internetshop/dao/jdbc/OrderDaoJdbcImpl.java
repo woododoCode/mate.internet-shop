@@ -28,11 +28,11 @@ public class OrderDaoJdbcImpl implements OrderDao {
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
             element.setId(resultSet.getLong(1));
-            insertOrdersProducts(element);
-            return element;
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to create " + element, e);
         }
+        insertOrdersProducts(element);
+        return element;
     }
 
     @Override
@@ -73,27 +73,23 @@ public class OrderDaoJdbcImpl implements OrderDao {
     public Order update(Order element) {
         String updateOrderQuery = "UPDATE orders SET user_id = ? "
                 + "WHERE order_id = ?;";
+        deleteOrderFromOrdersProducts(element.getId());
         try (Connection connection = ConnectionUtil.getConnection()) {
             var statement = connection.prepareStatement(updateOrderQuery);
             statement.setLong(1, element.getUserId());
             statement.setLong(2, element.getId());
             statement.executeUpdate();
-            deleteOrderFromOrdersProducts(element.getId());
-            insertOrdersProducts(element);
-            return element;
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to update " + element, e);
         }
+        insertOrdersProducts(element);
+        return element;
     }
 
     @Override
     public boolean delete(Long id) {
         String deleteOrderQuery = "DELETE FROM orders WHERE order_id = ?;";
-        try {
-            deleteOrderFromOrdersProducts(id);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        deleteOrderFromOrdersProducts(id);
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(deleteOrderQuery);
             statement.setLong(1, id);
@@ -104,17 +100,21 @@ public class OrderDaoJdbcImpl implements OrderDao {
         }
     }
 
-    private void insertOrdersProducts(Order order) throws SQLException {
+    private void insertOrdersProducts(Order order) {
         String insertOrdersProductsQuery = "INSERT INTO orders_products (order_id, products_id) "
                 + "VALUES (?, ?);";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            for (Product product : order.getProducts()) {
-                PreparedStatement insertStatement =
-                        connection.prepareStatement(insertOrdersProductsQuery);
-                insertStatement.setLong(1, order.getId());
-                insertStatement.setLong(2, product.getId());
-                insertStatement.executeUpdate();
+        try {
+            try (Connection connection = ConnectionUtil.getConnection()) {
+                for (Product product : order.getProducts()) {
+                    PreparedStatement insertStatement =
+                            connection.prepareStatement(insertOrdersProductsQuery);
+                    insertStatement.setLong(1, order.getId());
+                    insertStatement.setLong(2, product.getId());
+                    insertStatement.executeUpdate();
+                }
             }
+        } catch (SQLException e) {
+            throw new DataProcessingException("Error in insertOrdersProducts", e);
         }
     }
 
@@ -146,13 +146,15 @@ public class OrderDaoJdbcImpl implements OrderDao {
         }
     }
 
-    private void deleteOrderFromOrdersProducts(Long orderId) throws SQLException {
+    private void deleteOrderFromOrdersProducts(Long orderId) {
         String deleteOrderQuery = "DELETE FROM orders_products WHERE order_id IN"
                 + " (SELECT order_id FROM orders WHERE user_id = ?)";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(deleteOrderQuery);
             statement.setLong(1, orderId);
             statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataProcessingException("Error in deleteOrderFromOrdersProducts", e);
         }
     }
 }
