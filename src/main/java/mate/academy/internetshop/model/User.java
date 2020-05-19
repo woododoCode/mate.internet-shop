@@ -68,27 +68,30 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", name='" + name + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", salt=" + Arrays.toString(salt) +
-                ", roles=" + roles +
-                '}';
+        return "User{" + "userId=" + userId
+                + ", name='" + name + '\''
+                + ", login='" + login + '\''
+                + ", password='" + password + '\''
+                + ", salt=" + Arrays.toString(salt)
+                + ", roles=" + roles
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
         User user = (User) o;
-        return Objects.equals(userId, user.userId) &&
-                Objects.equals(getName(), user.getName()) &&
-                Objects.equals(getLogin(), user.getLogin()) &&
-                Objects.equals(getPassword(), user.getPassword()) &&
-                Arrays.equals(getSalt(), user.getSalt()) &&
-                Objects.equals(getRoles(), user.getRoles());
+        return Objects.equals(userId, user.userId)
+                && Objects.equals(getName(), user.getName())
+                && Objects.equals(getLogin(), user.getLogin())
+                && Objects.equals(getPassword(), user.getPassword())
+                && Arrays.equals(getSalt(), user.getSalt())
+                && Objects.equals(getRoles(), user.getRoles());
     }
 
     @Override

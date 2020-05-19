@@ -3,7 +3,6 @@ package mate.academy.internetshop.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.internetshop.dao.interfaces.OrderDao;
-import mate.academy.internetshop.db.Storage;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Order;
@@ -43,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAll() {
-        return Storage.orders;
+        return orderDao.getAll();
     }
 
     @Override
