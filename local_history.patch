@@ -1,0 +1,52 @@
+Index: src/main/java/mate/academy/internetshop/dao/impl/OrderDaoImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/mate/academy/internetshop/dao/impl/OrderDaoImpl.java	(date 1589738715742)
++++ src/main/java/mate/academy/internetshop/dao/impl/OrderDaoImpl.java	(date 1589738715742)
+@@ -4,13 +4,20 @@
+ import java.util.Optional;
+ import java.util.stream.IntStream;
+ import mate.academy.internetshop.dao.interfaces.OrderDao;
++import mate.academy.internetshop.dao.interfaces.UserDao;
+ import mate.academy.internetshop.db.Storage;
+ import mate.academy.internetshop.model.Order;
++import mate.academy.internetshop.model.User;
+ 
+-public class OrderDaoImpl implements OrderDao {
++public class OrderDaoImpl implements OrderDao, UserDao {
+     @Override
+     public Order create(Order order) {
+-        return Storage.addOrder(order);
++       OrderDao
++    }
++Integer int = new Integer;
++    @Override
++    public User create(User user) {
++        return null;
+     }
+ 
+     @Override
+@@ -25,6 +32,11 @@
+         return Storage.orders;
+     }
+ 
++    @Override
++    public User update(User user) {
++        return null;
++    }
++
+     @Override
+     public Order update(Order order) {
+         IntStream.range(0, Storage.orders.size())
+@@ -40,4 +52,9 @@
+         return Storage.orders
+                 .removeIf(order -> order.getId().equals(id));
+     }
++
++    @Override
++    public Optional<User> findByLogin(String login) {
++        return Optional.empty();
++    }
+ }

@@ -2,6 +2,7 @@ package mate.academy.internetshop.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Order {
     private Long orderId;
@@ -44,5 +45,24 @@ public class Order {
                 + ", userId=" + userId
                 + ", products=" + products
                 + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Order)) {
+            return false;
+        }
+        Order order = (Order) o;
+        return orderId.equals(order.orderId)
+                && getUserId().equals(order.getUserId())
+                && getProducts().equals(order.getProducts());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderId, getUserId(), getProducts());
     }
 }
