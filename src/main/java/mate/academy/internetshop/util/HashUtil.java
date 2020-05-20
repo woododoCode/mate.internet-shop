@@ -13,13 +13,14 @@ public class HashUtil {
 
     public static String hashPassword(String password, byte[] salt) {
         try {
-            char[] psw = password.toCharArray();
-            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
-            PBEKeySpec spec = new PBEKeySpec(psw, salt, ITERATION_COUNT, KEY_LENGTH);
-            SecretKey key = skf.generateSecret(spec);
-            byte[] res = key.getEncoded();
+            char[] passwordToChar = password.toCharArray();
+            SecretKeyFactory secretKeyFactory =
+                    SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+            PBEKeySpec spec = new PBEKeySpec(passwordToChar, salt, ITERATION_COUNT, KEY_LENGTH);
+            SecretKey secretKey = secretKeyFactory.generateSecret(spec);
+            byte[] keyEncoded = secretKey.getEncoded();
             StringBuilder hashedString = new StringBuilder();
-            for (byte b : res) {
+            for (byte b : keyEncoded) {
                 hashedString.append(String.format("%02x", b));
             }
             return hashedString.toString();
