@@ -8,11 +8,11 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 @@ -4,13 +4,20 @@
  import java.util.Optional;
  import java.util.stream.IntStream;
- import mate.academy.internetshop.dao.interfaces.OrderDao;
-+import mate.academy.internetshop.dao.interfaces.UserDao;
- import mate.academy.internetshop.db.Storage;
- import mate.academy.internetshop.model.Order;
-+import mate.academy.internetshop.model.User;
+ import dev.internetshop.dao.interfaces.OrderDao;
++import dev.internetshop.dao.interfaces.UserDao;
+ import dev.internetshop.db.Storage;
+ import dev.internetshop.model.Order;
++import dev.internetshop.model.User;
  
 -public class OrderDaoImpl implements OrderDao {
 +public class OrderDaoImpl implements OrderDao, UserDao {

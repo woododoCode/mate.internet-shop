@@ -9,7 +9,7 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Products</th>
+                            <th>User ID</th>
                             <th>Details</th>
                             <th>Delete</th>
                         </tr>
@@ -21,7 +21,7 @@
                                     <c:out value="${order.getId()}"/>
                                 </td>
                                 <td>
-                                    <c:out value="${order.getUser().getName()}"/>
+                                    <c:out value="${order.getUserId()}"/>
                                 </td>
                                 <td>
                                     <a class="btn btn-sm aqua-gradient btn-block" href="${pageContext.request.contextPath}/user/order/detail?id=${order.getId()}">Details</a>
