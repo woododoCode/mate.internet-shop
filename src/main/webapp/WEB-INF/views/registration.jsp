@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="includes/header.jsp"></jsp:include>
+<jsp:include page="includes/header.jsp"/>
 <div class="container">
     <div class="row d-flex justify-content-center mt-5">
         <div class="col-6 card">
@@ -26,4 +26,4 @@
         </div>
     </div>
 </div>
-<jsp:include page="includes/footer.jsp"></jsp:include>
+<jsp:include page="includes/footer.jsp"/>

@@ -27,7 +27,7 @@ public class AuthorizationFilter implements Filter {
     private final Map<String, Set<Role.RoleName>> protectedUrls = new HashMap<>();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         String[] adminUrls = filterConfig.getInitParameter("Admin urls").split(",");
         for (String url: adminUrls) {
             protectedUrls.put(url, Set.of(Role.RoleName.ADMIN));

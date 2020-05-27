@@ -1,6 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="../includes/header.jsp"></jsp:include>
+<jsp:include page="../includes/header.jsp"/>
 <title>Sorry, This Page Can&#39;t Be Accessed</title>
 
 <body class="bg-dark text-white py-5">
@@ -16,4 +16,4 @@
         </div>
     </div>
 </div>
-<jsp:include page="../includes/footer.jsp"></jsp:include>
+<jsp:include page="../includes/footer.jsp"/>
