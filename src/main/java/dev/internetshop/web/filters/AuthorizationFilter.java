@@ -16,10 +16,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AuthorizationFilter implements Filter {
-    private static final Logger LOGGER = Logger.getLogger(AuthorizationFilter.class);
+    private static final Logger LOGGER = LogManager.getLogger(AuthorizationFilter.class);
     private static final Injector INJECTOR =
             Injector.getInstance("dev.internetshop");
     private final UserService userService =
@@ -53,7 +54,7 @@ public class AuthorizationFilter implements Filter {
         if (isAuthorized(user, protectedUrls.get(url))) {
             chain.doFilter(req, resp);
         } else {
-            LOGGER.warn("BACK OFF, FROM " + url + " DEAR " + user.getName());
+            LOGGER.info("BACK OFF, FROM " + url + " DEAR " + user.getName());
             req.getRequestDispatcher("/WEB-INF/views/errors/403.jsp").forward(req, resp);
         }
     }

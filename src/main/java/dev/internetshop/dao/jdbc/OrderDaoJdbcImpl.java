@@ -18,28 +18,28 @@ import java.util.Optional;
 @Dao
 public class OrderDaoJdbcImpl implements OrderDao {
     @Override
-    public Order create(Order element) {
-        String insertOrderQuery = "INSERT INTO orders (user_id) VALUES (?);";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            var statement = connection.prepareStatement(insertOrderQuery,
-                    PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setLong(1, element.getUserId());
+    public Order create(Order order) {
+        String orderQuery = "INSERT INTO orders (user_id) VALUES (?);";
+        try (Connection connection = ConnectionUtil.getConnection();
+                 var statement = connection.prepareStatement(orderQuery,
+                         PreparedStatement.RETURN_GENERATED_KEYS)) {
+            statement.setLong(1, order.getUserId());
             statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
+            var resultSet = statement.getGeneratedKeys();
             resultSet.next();
-            element.setId(resultSet.getLong(1));
+            order.setId(resultSet.getLong(1));
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to create " + element, e);
+            throw new DataProcessingException("Unable to create " + order, e);
         }
-        insertOrdersProducts(element);
-        return element;
+        insertOrdersProducts(order);
+        return order;
     }
 
     @Override
     public Optional<Order> get(Long id) {
-        String selectOrderQuery = "SELECT * FROM orders WHERE order_id = ?;";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            var statement = connection.prepareStatement(selectOrderQuery);
+        String query = "SELECT * FROM orders WHERE order_id = ?;";
+        try (Connection connection = ConnectionUtil.getConnection();
+                var statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             var resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -54,11 +54,11 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public List<Order> getAll() {
-        String selectAllOrdersQuery = "SELECT * FROM orders;";
+        String query = "SELECT * FROM orders;";
         List<Order> allOrders = new ArrayList<>();
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            var statement = connection.prepareStatement(selectAllOrdersQuery);
-            ResultSet resultSet = statement.executeQuery();
+        try (Connection connection = ConnectionUtil.getConnection();
+                var statement = connection.prepareStatement(query)) {
+            var resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 var order = getOrderFromResultSet(resultSet);
                 allOrders.add(order);
@@ -70,28 +70,28 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     @Override
-    public Order update(Order element) {
-        String updateOrderQuery = "UPDATE orders SET user_id = ? "
+    public Order update(Order order) {
+        String query = "UPDATE orders SET user_id = ? "
                 + "WHERE order_id = ?;";
-        deleteOrderFromOrdersProducts(element.getId());
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            var statement = connection.prepareStatement(updateOrderQuery);
-            statement.setLong(1, element.getUserId());
-            statement.setLong(2, element.getId());
+        deleteOrderFromOrdersProducts(order.getId());
+        try (Connection connection = ConnectionUtil.getConnection();
+                 var statement = connection.prepareStatement(query)) {
+            statement.setLong(1, order.getUserId());
+            statement.setLong(2, order.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to update " + element, e);
+            throw new DataProcessingException("Unable to update " + order, e);
         }
-        insertOrdersProducts(element);
-        return element;
+        insertOrdersProducts(order);
+        return order;
     }
 
     @Override
     public boolean delete(Long id) {
-        String deleteOrderQuery = "DELETE FROM orders WHERE order_id = ?;";
+        String query = "DELETE FROM orders WHERE order_id = ?;";
         deleteOrderFromOrdersProducts(id);
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(deleteOrderQuery);
+        try (Connection connection = ConnectionUtil.getConnection();
+                var statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             int numberOfRowsDeleted = statement.executeUpdate();
             return numberOfRowsDeleted != 0;
@@ -101,17 +101,13 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     private void insertOrdersProducts(Order order) {
-        String insertOrdersProductsQuery = "INSERT INTO orders_products (order_id, products_id) "
-                + "VALUES (?, ?);";
-        try {
-            try (Connection connection = ConnectionUtil.getConnection()) {
-                for (Product product : order.getProducts()) {
-                    PreparedStatement insertStatement =
-                            connection.prepareStatement(insertOrdersProductsQuery);
-                    insertStatement.setLong(1, order.getId());
-                    insertStatement.setLong(2, product.getId());
-                    insertStatement.executeUpdate();
-                }
+        String query = "INSERT INTO orders_products (order_id, products_id) VALUES (?, ?);";
+        try (Connection connection = ConnectionUtil.getConnection();
+                var statement = connection.prepareStatement(query)) {
+            for (Product product : order.getProducts()) {
+                statement.setLong(1, order.getId());
+                statement.setLong(2, product.getId());
+                statement.executeUpdate();
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Error in insertOrdersProducts", e);
@@ -127,12 +123,12 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     private List<Product> getProductsFromOrderId(Long orderId) throws SQLException {
-        String selectProductIdQuery = "SELECT * FROM orders_products op JOIN products p "
+        String query = "SELECT * FROM orders_products op JOIN products p "
                 + "ON p.product_id = op.products_id WHERE op.order_id = ?";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(selectProductIdQuery);
+        try (Connection connection = ConnectionUtil.getConnection();
+                var statement = connection.prepareStatement(query)) {
             statement.setLong(1, orderId);
-            ResultSet resultSet = statement.executeQuery();
+            var resultSet = statement.executeQuery();
             List<Product> products = new ArrayList<>();
             while (resultSet.next()) {
                 Long id = resultSet.getLong("product_id");
@@ -147,10 +143,10 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     private void deleteOrderFromOrdersProducts(Long orderId) {
-        String deleteOrderQuery = "DELETE FROM orders_products WHERE order_id IN"
+        String query = "DELETE FROM orders_products WHERE order_id IN"
                 + " (SELECT order_id FROM orders WHERE user_id = ?)";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(deleteOrderQuery);
+        try (Connection connection = ConnectionUtil.getConnection();
+                var statement = connection.prepareStatement(query)) {
             statement.setLong(1, orderId);
             statement.executeUpdate();
         } catch (SQLException e) {
