@@ -35,7 +35,7 @@ Available functions for users with an ADMIN role only:
 <hr>
 
 # <a name="structure"></a>Project Structure
-* Java 11
+* Java 14
 * Maven 4.0.0
 * javax.servlet-api 3.1.0
 * jstl 1.2
