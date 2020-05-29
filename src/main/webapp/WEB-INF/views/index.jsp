@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="includes/header.jsp"></jsp:include>
+<jsp:include page="includes/header.jsp"/>
 <div class="container">
     <div class="jumbotron mt-5">
         <h1 class="display-4">WELCOME TO OUR CRAZY SHOP</h1>
@@ -20,4 +20,4 @@
 </div>
 
 
-<jsp:include page="includes/footer.jsp"></jsp:include>
+<jsp:include page="includes/footer.jsp"/>

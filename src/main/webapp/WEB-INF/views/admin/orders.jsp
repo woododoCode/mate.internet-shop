@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="../includes/header.jsp"></jsp:include>
+<jsp:include page="../includes/header.jsp"/>
 <h1 class="h2-responsive text-center my-5"><strong>Orders list</strong></h1>
 <div class="container">
     <div class="row d-flex justify-content-center mt-5">
@@ -9,7 +9,7 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Products</th>
+                            <th>User ID</th>
                             <th>Details</th>
                             <th>Delete</th>
                         </tr>
@@ -21,7 +21,7 @@
                                     <c:out value="${order.getId()}"/>
                                 </td>
                                 <td>
-                                    <c:out value="${order.getUser().getName()}"/>
+                                    <c:out value="${order.getUserId()}"/>
                                 </td>
                                 <td>
                                     <a class="btn btn-sm aqua-gradient btn-block" href="${pageContext.request.contextPath}/user/order/detail?id=${order.getId()}">Details</a>
@@ -36,4 +36,4 @@
         </div>
     </div>
 </div>
-<jsp:include page="../includes/footer.jsp"></jsp:include>
+<jsp:include page="../includes/footer.jsp"/>

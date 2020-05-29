@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+    <title></title>
 </head>
 <body class="cloudy-knoxville-gradient">
 <nav class="navbar navbar-expand-lg navbar-dark aqua-gradient">
@@ -16,7 +17,11 @@
     </button>
     <div class="collapse navbar-collapse" id="basicExampleNav">
         <ul class="navbar-nav mr-auto">
-
+            <li class="nav-item active">
+                <a class="nav-link" href="${pageContext.request.contextPath}/injectData"> Inject Data
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/cart">Shopping Cart</a>
             </li>
