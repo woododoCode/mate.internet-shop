@@ -153,4 +153,22 @@ public class OrderDaoJdbcImpl implements OrderDao {
             throw new DataProcessingException("Error in deleteOrderFromOrdersProducts", e);
         }
     }
+
+    @Override
+    public List<Order> getUserOrders(Long userId) {
+            String query = "SELECT * FROM orders WHERE user_id = ?;";
+            List<Order> userOrders = new ArrayList<>();
+            try (Connection connection = ConnectionUtil.getConnection();
+                 var statement = connection.prepareStatement(query)) {
+                statement.setLong(1, userId);
+                var resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    var order = getOrderFromResultSet(resultSet);
+                    userOrders.add(order);
+                }
+                return userOrders;
+            } catch (SQLException e) {
+                throw new DataProcessingException("Unable to get cart with ID " + userId, e);
+            }
+    }
 }
