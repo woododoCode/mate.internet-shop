@@ -168,7 +168,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             }
             return userOrders;
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to get cart with ID " + userId, e);
+            throw new DataProcessingException("Unable to get orders from user with ID " + userId, e);
         }
     }
 }
