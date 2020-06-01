@@ -35,7 +35,7 @@ Available functions for users with an ADMIN role only:
 <hr>
 
 # <a name="structure"></a>Project Structure
-* Java 14
+* Java 11
 * Maven 4.0.0
 * javax.servlet-api 3.1.0
 * jstl 1.2
@@ -51,9 +51,9 @@ Add it as maven project.
 
 Configure Tomcat:
 * add artifact
-* add sdk 14
+* add sdk 11.0.3
 
-Add sdk 14 in project struсture.
+Add sdk 11.0.3 in project struсture.
 
 Use file src/main/resources/init_db.sql to create schema and all the tables required by this app in MySQL database.
 
