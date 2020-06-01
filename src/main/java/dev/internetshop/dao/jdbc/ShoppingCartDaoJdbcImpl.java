@@ -157,10 +157,10 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     }
 
     @Override
-    public ShoppingCart getByUserId(Long userId){
+    public ShoppingCart getByUserId(Long userId) {
         String query = "SELECT * FROM carts WHERE user_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection();
-             var statement = connection.prepareStatement(query)) {
+                var statement = connection.prepareStatement(query)) {
             statement.setLong(1, userId);
             var resultSet = statement.executeQuery();
             resultSet.next();

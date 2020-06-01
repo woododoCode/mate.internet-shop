@@ -75,7 +75,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 + "WHERE order_id = ?;";
         deleteOrderFromOrdersProducts(order.getId());
         try (Connection connection = ConnectionUtil.getConnection();
-                 var statement = connection.prepareStatement(query)) {
+                var statement = connection.prepareStatement(query)) {
             statement.setLong(1, order.getUserId());
             statement.setLong(2, order.getId());
             statement.executeUpdate();
@@ -156,19 +156,19 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public List<Order> getUserOrders(Long userId) {
-            String query = "SELECT * FROM orders WHERE user_id = ?;";
-            List<Order> userOrders = new ArrayList<>();
-            try (Connection connection = ConnectionUtil.getConnection();
-                 var statement = connection.prepareStatement(query)) {
-                statement.setLong(1, userId);
-                var resultSet = statement.executeQuery();
-                while (resultSet.next()) {
-                    var order = getOrderFromResultSet(resultSet);
-                    userOrders.add(order);
-                }
-                return userOrders;
-            } catch (SQLException e) {
-                throw new DataProcessingException("Unable to get cart with ID " + userId, e);
+        String query = "SELECT * FROM orders WHERE user_id = ?;";
+        List<Order> userOrders = new ArrayList<>();
+        try (Connection connection = ConnectionUtil.getConnection();
+                var statement = connection.prepareStatement(query)) {
+            statement.setLong(1, userId);
+            var resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                var order = getOrderFromResultSet(resultSet);
+                userOrders.add(order);
             }
+            return userOrders;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Unable to get cart with ID " + userId, e);
+        }
     }
 }
