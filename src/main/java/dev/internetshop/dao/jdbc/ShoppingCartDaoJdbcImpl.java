@@ -168,7 +168,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             shoppingCart.setProducts(getProductsFromShoppingCartId(shoppingCart.getId()));
             return shoppingCart;
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to get shopping cart from user with ID " + userId, e);
+            throw new DataProcessingException("Unable to get shopping cart from user with ID "
+                    + userId, e);
         }
     }
 }
